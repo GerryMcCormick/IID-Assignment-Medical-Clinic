@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-//        $this->call(DoctorTableSeeder::class);
-//        $this->call(AddressTableSeeder::class);
-//
-//        // create patients - user is base model - users and addresses are created first
-//        $this->call(UserTableSeeder::class);
-//        $this->call(ReminderTableSeeder::class);
+        $this->call(DoctorTableSeeder::class);
+        $this->call(AddressTableSeeder::class);
+
+        // create patients - user is base model - users and addresses are created first
+        $this->call(UserTableSeeder::class);
+        $this->call(ReminderTableSeeder::class);
         $this->call(AppointmentTableSeeder::class);
 
         Model::reguard();

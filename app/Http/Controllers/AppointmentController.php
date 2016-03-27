@@ -34,7 +34,17 @@ class AppointmentController extends Controller
     public function availableAppointments($week = 1, $dr_id = 0){
         $page          = 'Available Appointments';
         $doctors       = $this->doctors;
+        $wk1Over       = false;
 
+        // if week 1 is over, don't allow it to be displayed, set to week 2 and hide previous week buttons in view
+        if(Carbon::now()->isWeekend()){
+            $this->mondayNineAM->addDays(7);
+            $wk1Over = true;
+            if($week == 1){
+                $week = 2;
+            }
+        }
+        
         //sets $this->appointments
         $this->getAppointments($dr_id); // first week (patients only allowed to book 2 weeks in advance)
         $appointments  = $this->appointments;
@@ -53,7 +63,8 @@ class AppointmentController extends Controller
         }
 
         // pagination is done by mon - fri
-        return view('page.availableAppointments', compact('page', 'doctors', 'appointments', 'patient_id', 'mon', 'fri', 'week', 'dr_id'));
+        return view('page.availableAppointments', compact('page', 'doctors', 'appointments', 'patient_id', 'mon', 'fri',
+            'week', 'dr_id', 'wk1Over'));
     }
 
     public function bookAppointment(Request $request){

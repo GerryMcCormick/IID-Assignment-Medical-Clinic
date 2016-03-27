@@ -24,7 +24,7 @@
 
                 <br>
                 <p>
-                    @if(isset($week) && $week > 1)
+                    @if(isset($week) && $week > 1 && ($week != 2 && $wk1Over))
                         <span class="pull-left">
                             <a class="loader btn btn-default"
                                href="/appointments/available_appointments/{{$week - 1}}/{{$dr_id}}"><< Previous Week</a>
@@ -77,7 +77,7 @@
                 <br>
 
                 <p>
-                    @if(isset($week) && $week > 1)
+                    @if(isset($week) && $week > 1 && ($week != 2 && $wk1Over))
                         <span class="pull-left">
                             <a class="loader btn btn-default"
                                href="/appointments/available_appointments/{{$week - 1}}/{{$dr_id}}"><< Previous Week</a>

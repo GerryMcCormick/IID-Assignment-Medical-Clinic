@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Doctor;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -19,15 +20,19 @@ class AppointmentController extends Controller
     private $mon;
     private $fri;
     private $appointments;
+    private $timezone;
 
+    // british summer time causing diff of -1 hour, so use Carbon::now(new DateTimeZone('Europe/London'))
     public function __construct(){
-        $this->doctors       = Doctor::all();
-        $this->now           = Carbon::now();
-        $this->mon           = Carbon::now()->startOfWeek()->format('l jS F Y');
-        $this->fri           = Carbon::now()->startOfWeek()->addDays(4)->format('l jS F Y');
+        $this->timezone = new DateTimeZone('Europe/London');
 
-        $this->mondayNineAM     = Carbon::now()->startOfWeek()->addHours(9);
-        $this->wk3FriFiveThirty = Carbon::now()->startOfWeek()->addDays(18)->setTime(17, 30);
+        $this->doctors          = Doctor::all();
+        $this->now              = Carbon::now($this->timezone);
+        $this->mon              = Carbon::now($this->timezone)->startOfWeek()->format('l jS F Y');
+        $this->fri              = Carbon::now($this->timezone)->startOfWeek()->addDays(4)->format('l jS F Y');
+
+        $this->mondayNineAM     = Carbon::now($this->timezone)->startOfWeek()->addHours(9);
+        $this->wk3FriFiveThirty = Carbon::now($this->timezone)->startOfWeek()->addDays(18)->setTime(17, 30);
     }
 
     // week 1, 2, or 3   mon - fri, dr id 0 = all doctors
@@ -37,7 +42,7 @@ class AppointmentController extends Controller
         $wk1Over       = false;
 
         // if week 1 is over, don't allow it to be displayed, set to week 2 and hide previous week buttons in view
-        if(Carbon::now()->isWeekend()){
+        if(Carbon::now($this->timezone)->isWeekend()){
             $this->mondayNineAM->addDays(7);
             $wk1Over = true;
             if($week == 1){
@@ -55,11 +60,11 @@ class AppointmentController extends Controller
 
         // mon and fri dates for displaying appointments in this date range
         if($week == 2){
-            $mon = Carbon::now()->startOfWeek()->addDays(7)->format('l jS F Y');
-            $fri = Carbon::now()->startOfWeek()->addDays(11)->format('l jS F Y');
+            $mon = Carbon::now($this->timezone)->startOfWeek()->addDays(7)->format('l jS F Y');
+            $fri = Carbon::now($this->timezone)->startOfWeek()->addDays(11)->format('l jS F Y');
         }elseif($week == 3){
-            $mon = Carbon::now()->startOfWeek()->addDays(14)->format('l jS F Y');;
-            $fri = Carbon::now()->startOfWeek()->addDays(18)->format('l jS F Y');;
+            $mon = Carbon::now($this->timezone)->startOfWeek()->addDays(14)->format('l jS F Y');;
+            $fri = Carbon::now($this->timezone)->startOfWeek()->addDays(18)->format('l jS F Y');;
         }
 
         // pagination is done by mon - fri
@@ -83,7 +88,7 @@ class AppointmentController extends Controller
 
     private function getAppointments($dr_id){
         // last bookable appointment is 2 weeks from $now at 17.30
-        $lastBookable  = Carbon::now()->addWeeks(2)->setTime(17, 30);
+        $lastBookable  = Carbon::now($this->timezone)->addWeeks(2)->setTime(17, 30);
 
         // if weekend (sat/sun) set to previous fri at 5.30
         if($lastBookable->isWeekend()){

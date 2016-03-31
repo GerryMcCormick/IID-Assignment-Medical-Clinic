@@ -35,12 +35,14 @@ Route::group(['middleware' => ['web']], function () {
 
     
     //  APPOINTMENTS
-    // next 3 routes should only be accessable if logged in!
+    // some routes should only be accessible if logged in!
     Route::get('appointments', 'PageController@appointments'); // 2 buttons just, Available and pending/previous
-    
-    Route::get('appointments/available_appointments/{week}/{doctor_id}', 'AppointmentController@availableAppointments'); // browse appointments page
+
+    // browse appointments page
+    Route::get('appointments/available_appointments/{week}/{doctor_id}', 'AppointmentController@availableAppointments'); 
     route::post('appointments/book_appointment',             'AppointmentController@bookAppointment');
-    
+    route::get('appointments/pending_previous',             'AppointmentController@pendingOrPreviousAppointments');
+
     
 // AUTHENTICATION
     Route::controllers([

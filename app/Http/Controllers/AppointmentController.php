@@ -24,6 +24,9 @@ class AppointmentController extends Controller
 
     // british summer time causing diff of -1 hour, so use Carbon::now(new DateTimeZone('Europe/London'))
     public function __construct(){
+        // php date timezone
+        date_default_timezone_set('Europe/London');
+        // timezone used for Carbon
         $this->timezone = new DateTimeZone('Europe/London');
 
         $this->doctors          = Doctor::all();
@@ -84,6 +87,41 @@ class AppointmentController extends Controller
         ]);
         
         return $app->id;
+    }
+
+    public function pendingOrPreviousAppointments(){
+        $page = 'Pending/Previous Appointments';
+        $user = Auth::user();
+
+        $pendingAppointments = Appointment::where('patient_id', $user->id)
+                              ->where('datetime', '>', $this->now)->get();
+        $pending = [];
+        // formatted array for display in view
+        if(count($pendingAppointments) > 0){
+            foreach($pendingAppointments as $pen){
+                $appointment['time'] = date('H:i l jS F Y', strtotime($pen->datetime));
+                $appointment['doctor']['id']   = $pen->doctor_id;
+                $appointment['doctor']['name'] = 'Dr ' . $this->doctors[$pen->doctor_id - 1]->surname;
+                
+                $pending[] = $appointment;
+            }
+        }
+
+        $previousAppointments = Appointment::where('patient_id', $user->id)
+                               ->where('datetime', '<', $this->now)->get();
+        $previous = [];
+        // formatted array for display in view
+        if(count($previousAppointments) > 0){
+            foreach($previousAppointments as $pre){
+                $appointment['time'] = date('H:i l jS F Y', strtotime($pre->datetime));
+                $appointment['doctor']['id']   = $pre->doctor_id;
+                $appointment['doctor']['name'] = 'Dr ' . $this->doctors[$pre->doctor_id - 1]->surname;
+
+                $previous[] = $appointment;
+            }
+        }
+
+        return view('page.pending_previous', compact('page', 'pending', 'previous'));
     }
 
     private function getAppointments($dr_id){

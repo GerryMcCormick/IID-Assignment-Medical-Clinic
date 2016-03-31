@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -22,6 +23,7 @@ class PageController extends Controller
         }
     }
 
+    // method called after booking an appointment
     public function homeAfterBooking(){
         $page = 'Home';
         $user = Auth::user();
@@ -44,4 +46,5 @@ class PageController extends Controller
         $page = 'Appointments';
         return view('page.appointments', compact('page'));
     }
+
 }

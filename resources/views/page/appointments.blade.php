@@ -16,7 +16,7 @@
 
                             <br><br>
 
-                            <a href="#" class="btn btn-default btn-lg">Pending/Previous Appointments</a>
+                            <a href="/appointments/pending_previous" class="btn btn-default btn-lg">Pending/Previous Appointments</a>
                         </p>
                     </li>
                 </ul>

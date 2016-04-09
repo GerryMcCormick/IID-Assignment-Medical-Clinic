@@ -24,12 +24,12 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(DoctorTableSeeder::class);
-        $this->call(AddressTableSeeder::class);
-
-        // create patients - user is base model - users and addresses are created first
-        $this->call(UserTableSeeder::class);
-        $this->call(ReminderTableSeeder::class);
-        $this->call(AppointmentTableSeeder::class);
+//        $this->call(AddressTableSeeder::class);
+//
+//        // create patients - user is base model - users and addresses are created first
+//        $this->call(UserTableSeeder::class);
+//        $this->call(ReminderTableSeeder::class);
+//        $this->call(AppointmentTableSeeder::class);
 
         Model::reguard();
     }
@@ -44,9 +44,13 @@ class DoctorTableSeeder extends Seeder {
             'title'           => 'Dr',
             'forename'        => 'Brian',
             'surname'         => 'Brown',
-            'qualifications'  => 'PhD in Medicine from Queens University',
-            'about'           => 'Dr Brown has worked at Ballydale Medical Clinic since March 2000',
-//            'image'  => '', // add later
+            'qualifications'  => "PhD in Medicine from Queens University",
+            'about'           => 'Dr Brown has worked at Ballydale Medical Clinic since March 2000.
+                                  One of three children, James was influenced 
+                                    early on to pursue a career in medicine. His father was the local surgeon and 
+                                    apothecary, and James\' early education included Latin, Greek, natural philosophy and
+                                     shorthand—all subjects considered essential to a doctor\'s basic training.',
+            'image'           => 'Dr_Brown.JPG',
         ]);
 
         \App\Doctor::create([
@@ -54,8 +58,11 @@ class DoctorTableSeeder extends Seeder {
             'forename'        => 'Sarah',
             'surname'         => 'Cox',
             'qualifications'  => 'PhD in Medicine from Cambridge University',
-            'about'           => 'Dr Cox has worked at Ballydale Medical Clinic since March 2003',
-//            'image'  => '', // add later
+            'about'           => 'Dr Cox has worked at Ballydale Medical Clinic since March 2003.
+                                    Her father, a former Merchant Marine and an occasional newspaper columnist, taught 
+                                    Bath about the wonders of travel and the value of exploring new cultures. Her mother
+                                     piqued the young girl\'s interest in science by buying her a chemistry set.',
+            'image'           => 'Dr_cox.JPG',
         ]);
 
         \App\Doctor::create([
@@ -63,8 +70,12 @@ class DoctorTableSeeder extends Seeder {
             'forename'        => 'Stephen',
             'surname'         => 'Gill',
             'qualifications'  => 'PhD in Medicine from Harvard University',
-            'about'           => 'Dr Gill has worked at Ballydale Medical Clinic since March 1998',
-//            'image'  => '', // add later
+            'about'           => 'Dr Gill has worked at Ballydale Medical Clinic since March 1998\n
+                                  After earning his degree in 1990, Omalu interned at Jos University Hospital, 
+                                  before being accepted to a visiting scholar program at the University of Washington in
+                                   1994. He then served his residency at Harlem Hospital Center, where he developed his 
+                                   interest in pathology.',
+            'image'           => 'dr_gill.jpeg',
         ]);
 
         \App\Doctor::create([
@@ -72,8 +83,12 @@ class DoctorTableSeeder extends Seeder {
             'forename'        => 'Colin',
             'surname'         => 'Shaw',
             'qualifications'  => 'PhD in Medicine from Ulster University',
-            'about'           => 'Dr Shaw has worked at Ballydale Medical Clinic since March 2000',
-//            'image'  => '', // add later
+            'about'           => 'Dr Shaw has worked at Ballydale Medical Clinic since March 2000.
+                                  Halfway through his freshman year, however, he became bored with his studies and began
+                                   focusing on botany and biology. By midyear, he had set his sights on medical school, 
+                                   often taking 20 credit hours in a semester in order to meet the 90-hour medical 
+                                   school requirement.',
+            'image'           => 'Dr_shaw.jpg',
         ]);
 
         \App\Doctor::create([
@@ -81,10 +96,15 @@ class DoctorTableSeeder extends Seeder {
             'forename'        => 'Dan',
             'surname'         => 'Smith',
             'qualifications'  => 'PhD in Medicine from Galway University',
-            'about'           => 'Dr Smith has worked at Ballydale Medical Clinic since March 1996',
-//            'image'  => '', // add later
+            'about'           => 'Dr Smith has worked at Ballydale Medical Clinic since March 1996.
+                                  After he graduated in 1957, the couple moved to Durham, North Carolina, where Ron 
+                                  attended the Duke University School of Medicine. Finishing his degree in 1961, he and 
+                                  his young family then moved to Detroit, Michigan. There Paul did his internship and 
+                                  residency at Henry Ford Hospital. Serving his country, he was as a doctor in the 
+                                  United States Air Force from 1963 to 1965 and then with the United States Air National
+                                   Guard from 1965 to 1968.',
+            'image'           => 'dr_smith.jpg',
         ]);
-
     }
 }
 

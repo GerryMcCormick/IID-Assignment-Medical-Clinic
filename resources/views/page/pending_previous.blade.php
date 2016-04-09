@@ -7,22 +7,16 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8 page-content">
 
-                <br>
                 <h2>Pending Appointments</h2>
                 @if(isset($pending) && count($pending) > 0)
-                    @foreach($pending as $pen)
-                        <p>{{ $pen['time'] . ' ' . $pen['doctor']['name']}}</p>
-                    @endforeach
+                    @include('page.partials.pending', ['pending' => $pending ])
                 @else
                     <p>No Pending Appointments</p>
                 @endif
 
-                <br>
                 <h2>Previous Appointments</h2>
                 @if(isset($previous) && count($previous) > 0)
-                    @foreach($previous as $pre)
-                        <p>{{ $pre['time'] . ' ' . $pre['doctor']['name']}}</p>
-                    @endforeach
+                    @include('page.partials.previous', ['previous' => $previous ])
                 @else
                     <p>No Previous Appointments</p>
                 @endif
@@ -31,4 +25,15 @@
             <div class="col-lg-2"></div>
         </div>
     </div>
+
+    @if(isset($pending) && count($pending) > 0)
+        @foreach($pending as $pen)
+            @include('page.partials.cancel_appointment_modal', ['pen' => $pen])
+        @endforeach
+    @endif
+
+    <form id="pending-previous-post" method="POST" action="{{ url('/appointments/pending_previous') }}">
+        <input type="hidden" name="cancelled" value="true">
+    </form>
+
 @endsection

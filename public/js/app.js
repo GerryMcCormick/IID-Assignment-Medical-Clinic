@@ -18,7 +18,6 @@ $(document).ready(function() {
 
                 if(success){
                     var modal_dismiss_btn = document.getElementById("btn-dismiss-modal" + container_id);
-                    //alert("Appointment Booked.");
                     modal_dismiss_btn.click();
                     $('p#'+container_id).hide();
 
@@ -26,6 +25,33 @@ $(document).ready(function() {
                     // submit form hidden on availableAppointments.blade - was only way i could think of quickly to
                     // hit the route "/" as a POST
                     $('#home-post').submit();
+                }else{
+                    alert("error");
+                }
+            }
+        });
+    });
+
+    $('.btn-cancel_appointment').click(function(){
+        var appointment_id = $(this).data('app_id');
+
+        var url = "/appointments/cancel_appointment";
+    
+        $.ajax({
+            type: 'POST',
+            headers: { 'X-XSRF-TOKEN' : $('#token').val() },
+            url: url,
+            data: { app_id: appointment_id },
+            dataType: 'json',
+            success: function(success) {
+    
+                if(success){
+                    var modal_dismiss_btn = document.getElementById("btn-dismiss-modal" + appointment_id);
+                    modal_dismiss_btn.click();
+                    $('tr#row_id_'+appointment_id).hide();
+    
+                    // reloads page with appointment cancellation confirmation flash message
+                    $('#pending-previous-post').submit();
                 }else{
                     alert("error");
                 }

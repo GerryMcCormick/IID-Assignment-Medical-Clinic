@@ -1,0 +1,22 @@
+.carousel-caption h2 {
+    animation-delay: 0.5s;
+}
+
+.carousel-caption h4 {
+    animation-delay: 1s;
+}
+
+.carousel-caption h5 {
+    animation-delay: 1.5s;
+}
+
+.text-outline {
+    text-shadow: 2px 1px 2px #000;
+}
+
+.carousel-indicators > li{
+    border: 2px outset rgba(0, 0, 0, 0.9);
+}
+/*.carousel .item {*/
+    /*min-height: 500px;*/
+/*}*/

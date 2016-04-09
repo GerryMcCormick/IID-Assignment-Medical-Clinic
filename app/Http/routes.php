@@ -33,17 +33,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/',     'PageController@homeAfterBooking'); // home after booking appointment
     Route::get('logout', 'PageController@logout');
 
-    
+    Route::get('about',  'PageController@about');
+
     //  APPOINTMENTS
     // some routes should only be accessible if logged in!
     Route::get('appointments', 'PageController@appointments'); // 2 buttons just, Available and pending/previous
 
     // browse appointments page
     Route::get('appointments/available_appointments/{week}/{doctor_id}', 'AppointmentController@availableAppointments'); 
-    route::post('appointments/book_appointment',             'AppointmentController@bookAppointment');
+    route::post('appointments/book_appointment',            'AppointmentController@bookAppointment');
     route::get('appointments/pending_previous',             'AppointmentController@pendingOrPreviousAppointments');
-
+    route::post('appointments/cancel{appointment_id}',      'AppointmentController@cancel');
     
+    // same as get for this route but with posted cancel param set to true
+    route::post('appointments/pending_previous',            'AppointmentController@pendingOrPreviousAppointments');
+
+
+
 // AUTHENTICATION
     Route::controllers([
         'auth'     => 'Auth\AuthController',

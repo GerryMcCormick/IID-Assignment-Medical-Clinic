@@ -20,6 +20,8 @@
 		<link rel="stylesheet" href="{{$url}}/css/app.css" type="text/css">
 		<link rel="stylesheet" href="{{$url}}/css/jquery-ui.min.css" type="text/css">
 		<link rel="stylesheet" href="{{$url}}/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="{{$url}}/css/animate.css" type="text/css">
+		<link rel="stylesheet" href="{{$url}}/css/carousel.css" type="text/css">
 
 		<link rel="canonical" href="{{$currenturl}}">
 	</head>
@@ -113,6 +115,7 @@
     <script src="{{$url}}/js/jquery-ui.min.js" type="text/javascript"></script>
 
 	<script src="{{$url}}/js/app.js" type="text/javascript"></script>
+	<script src="{{$url}}/js/carousel.js" type="text/javascript"></script>
 
 	<script>
 		$(function() {

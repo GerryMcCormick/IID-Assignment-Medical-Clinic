@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">@if(Auth::user()){{Auth::user()->fullName()}}@endif</a>
+			<p class="navbar-brand">@if(Auth::user()){{Auth::user()->fullName()}}@endif</p>
 		</div>
 		<ul class="nav navbar-nav pull-right">
 

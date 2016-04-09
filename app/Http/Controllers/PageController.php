@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\Doctor;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -47,4 +48,10 @@ class PageController extends Controller
         return view('page.appointments', compact('page'));
     }
 
+    public function about(){
+        $page    = 'About';
+        $doctors = Doctor::all();
+        
+        return view('page.about', compact('page', 'doctors'));
+    }
 }

@@ -10,17 +10,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 
 class AppointmentController extends Controller
 {
-    private $doctors;
-    private $now;
-    private $mondayNineAM;
-    private $wk3FriFiveThirty;
-    private $mon;
-    private $fri;
-    private $appointments;
-    private $timezone;
+    private $doctors, $now, $mondayNineAM, $wk3FriFiveThirty, $mon, $fri, $appointments, $timezone;
 
     // british summer time causing diff of -1 hour, so use Carbon::now(new DateTimeZone('Europe/London'))
     public function __construct(){
@@ -89,12 +84,20 @@ class AppointmentController extends Controller
         return $app->id;
     }
 
+
+    /**
+     * @param bool $cancel - if $cancel = true display flash notification
+     * @return mixed
+     */
     public function pendingOrPreviousAppointments(){
         $page = 'Pending/Previous Appointments';
         $user = Auth::user();
 
+        $cancelled = isset($_POST['cancelled']) && $_POST['cancelled'] ? true : false;
+
         $pendingAppointments = Appointment::where('patient_id', $user->id)
-                              ->where('datetime', '>', $this->now)->get();
+                                          ->where('datetime', '>', $this->now)
+                                          ->orderBy('datetime')->get();
         $pending = [];
         // formatted array for display in view
         if(count($pendingAppointments) > 0){
@@ -102,13 +105,15 @@ class AppointmentController extends Controller
                 $appointment['time'] = date('H:i l jS F Y', strtotime($pen->datetime));
                 $appointment['doctor']['id']   = $pen->doctor_id;
                 $appointment['doctor']['name'] = 'Dr ' . $this->doctors[$pen->doctor_id - 1]->surname;
+                $appointment['app_id']         = $pen->id;
                 
                 $pending[] = $appointment;
             }
         }
 
         $previousAppointments = Appointment::where('patient_id', $user->id)
-                               ->where('datetime', '<', $this->now)->get();
+                                           ->where('datetime', '<', $this->now)
+                                           ->orderBy('datetime')->get();
         $previous = [];
         // formatted array for display in view
         if(count($previousAppointments) > 0){
@@ -121,7 +126,28 @@ class AppointmentController extends Controller
             }
         }
 
+        if($cancelled){
+            // because flashing to view and not redirecting, flash must be pushed to flash old
+            // in session else will be displayed for 2 requests
+            Flash::success('Your appointment has been cancelled ' . Auth::user()->first_name);
+            Session::push('flash.old', 'flash_notification.message');
+            Session::push('flash.old', 'flash_notification.level');
+        }
+
         return view('page.pending_previous', compact('page', 'pending', 'previous'));
+    }
+
+
+    /**
+     * @param Request $request - appointment id
+     * Cancel an appointment - called from js
+     * @return bool $deleted
+     */
+    public function cancel(Request $request){
+        $app_id = $request->app_id;
+        $deleted = Appointment::destroy([$app_id]);
+
+        return $deleted;
     }
 
     private function getAppointments($dr_id){

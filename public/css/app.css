@@ -124,3 +124,29 @@ footer > p {
 td {
     text-align: left;
 }
+
+.contact-text {
+    background: rgba(192, 192, 192, 0.9);
+    font-weight: bold;
+}
+
+.contact-text > h2 {
+    text-shadow: 2px 1px 2px white;
+    color: #000;
+}
+
+.contact-text > h3 {
+    text-shadow: 2px 1px 2px white;
+    color: #000;
+}
+
+.contact-text > h4 {
+    text-shadow: 2px 1px 2px white;
+    color: #000;
+    font-weight: bold;
+}
+
+.contact-text > p {
+    text-shadow: 2px 1px 2px white;
+    color: #000;
+}

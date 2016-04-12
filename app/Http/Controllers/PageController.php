@@ -54,4 +54,9 @@ class PageController extends Controller
         
         return view('page.about', compact('page', 'doctors'));
     }
+
+    public function contact(){
+        $page    = 'Contact Us';
+        return view('page.contact', compact('page'));
+    }
 }

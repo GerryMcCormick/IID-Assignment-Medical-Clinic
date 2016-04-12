@@ -29,11 +29,12 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::get('/',      'PageController@home'); // home
-    Route::post('/',     'PageController@homeAfterBooking'); // home after booking appointment
-    Route::get('logout', 'PageController@logout');
+    Route::get('/',       'PageController@home'); // home
+    Route::post('/',      'PageController@homeAfterBooking'); // home after booking appointment
+    Route::get('logout',  'PageController@logout');
 
-    Route::get('about',  'PageController@about');
+    Route::get('about',   'PageController@about');
+    Route::get('contact', 'PageController@contact');
 
     //  APPOINTMENTS
     // some routes should only be accessible if logged in!

@@ -51,7 +51,6 @@
 					</ul>
 				</div>
 			</div>
-			{{--<div class="contact"><a href="/contact"><img class="light" src="/img/info-icon-light.png" /> <img class="dark" src="/img/info-icon.png" /></a></div>--}}
 			<div class="nav-open icon-menu radial-btn"></div>
 
 			<div class="nav-close radial-btn long"><span class="icon-back"></span><div class="label">Back</div></div>
@@ -88,7 +87,6 @@
 						<p>21 Ballydale Street</p>
 						<p>Ballydale</p>
 						<p>BT48 123</p>
-						{{--<li><a href="https://www.google.co.uk/maps/dir/''/21+Talbot+St,+Belfast+BT1+2LD/@54.6024588,-5.9323151,16z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x48610853e2cd47c1:0x29492448e8f10728!2m2!1d-5.9279377!2d54.6024589">Find us on Google Maps</a></li>--}}
 					</div>
 					<div class="col-lg-6">
 						<p>+44 (0) 28 7131 9526</p>
@@ -107,9 +105,6 @@
 
 	</div>
 
-    {{--<a class="scroll-top radial-btn long" href="#top"><!--<span class="title">Back to top</span>--><span class="icon-up"></span></a>--}}
-
-    {{--<script src="{{$url}}/js/vendor.js" type="text/javascript"></script>--}}
     <script src="{{$url}}/js/jquery2.2.1.min.js" type="text/javascript"></script>
     <script src="{{$url}}/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{{$url}}/js/jquery-ui.min.js" type="text/javascript"></script>
@@ -128,6 +123,6 @@
 			});
 		});
 	</script>
-	{{--</div>--}}
+
     </body>
 </html>

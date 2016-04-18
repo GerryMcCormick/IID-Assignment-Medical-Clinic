@@ -41,7 +41,7 @@ class PageController extends Controller
     public function logout(){
         Flash::success("You have sucessfully logged out " . Auth::user()->first_name);
         Auth::logout();
-        return redirect('/');
+        return redirect('auth/login');
     }
 
     public function appointments(){

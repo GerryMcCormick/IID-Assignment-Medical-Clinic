@@ -1,6 +1,3 @@
-/**
- * Created by declanmcdonough on 08/02/2016.
- */
 $(document).ready(function() {
 
     var $_token = $('#token').val();

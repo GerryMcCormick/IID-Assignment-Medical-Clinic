@@ -21,7 +21,7 @@
         label { display:block; margin:15px 0 5px;}
         input[type=text], input[type=password], input[type=email] { width:300px; padding:5px; border:solid 1px #000;}
         select { width:300px; padding:5px; border:solid 1px #000;}
-        
+
         button, .prev, .next { background-color:#b0232a; padding:5px 10px; color:#fff; text-decoration:none;}
         button:hover, .prev:hover, .next:hover { background-color:#000; text-decoration:none;}
 
@@ -30,17 +30,17 @@
         /*#controls { background: #eee; box-shadow: 0 0 16px #999; height: 30px; position: fixed; padding: 10px; top: 0; left: 0; width: 100%; z-index: 1 }*/
         /*#controls h1 { color: #666; display: inline-block; margin: 0 0 8px 0 }*/
         /*#controls input[type=text] { border-color: #999; margin: 0 25px; width: 120px }*/
-        
+
         #steps { margin: 80px 0 0 0 }
     </style>
-    
+
     <link rel="stylesheet" href="{{$url}}/formToWizard/css/formToWizard.css" />
     <link rel="stylesheet" href="{{$url}}/formToWizard/css/validationEngine.jquery.css" />
 
     <link rel="stylesheet" href="{{$url}}/css/app.css" type="text/css">
     <link rel="stylesheet" href="{{$url}}/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="{{$url}}/css/bootstrap.min.css" type="text/css">
-    
+
     <script src="{{$url}}/formToWizard/js/jquery-1.7.1.min.js"></script>
     {{--bootstrap js requires jquery 1.9 or higher, but then formwizard doesn't work!--}}
     {{--<script src="{{$url}}/js/bootstrap.min.js" type="text/javascript"></script>--}}
@@ -49,13 +49,13 @@
     <script src="{{$url}}/formToWizard/js/jquery.formToWizard.js"></script>
     <script src="{{$url}}/formToWizard/js/jquery.validationEngine.js"></script>
     <script src="{{$url}}/formToWizard/js/jquery.validationEngine-en.js"></script>
-    
+
     <script>
         $( function() {
             var $signupForm = $( '#registerForm' );
-            
+
             $signupForm.validationEngine();
-            
+
             $signupForm.formToWizard({
                 submitButton: 'register_btn',
                 showProgress: true, //default value for showProgress is also true
@@ -66,15 +66,15 @@
                     return $signupForm.validationEngine( 'validate' );
                 }
             });
-            
+
             $( '#txt_stepNo' ).change( function() {
                 $signupForm.formToWizard( 'GotoStep', $( this ).val() );
             });
-            
+
             $( '#btn_next' ).click( function() {
                 $signupForm.formToWizard( 'NextStep' );
             });
-            
+
             $( '#btn_prev' ).click( function() {
                 $signupForm.formToWizard( 'PreviousStep' );
             });
@@ -91,6 +91,7 @@
                 dateFormat: "DD, d MM, yy"
             });
         });
+
     </script>
 </head>
 
@@ -155,6 +156,15 @@
         </footer>
 
     </div>
+
+    @if(isset($page) && $page == "Register")
+    <script>
+        $(document).ready(function() {
+            var $elem = $(document);
+            $('html, body').delay(1500).animate({scrollTop: $elem.height()}, 1500);
+        });
+    </script>
+    @endif
 
 </body>
 </html>

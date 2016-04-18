@@ -39,6 +39,7 @@ class PageController extends Controller
     }
 
     public function logout(){
+        Flash::success("You have sucessfully logged out " . Auth::user()->first_name);
         Auth::logout();
         return redirect('/');
     }
@@ -51,7 +52,7 @@ class PageController extends Controller
     public function about(){
         $page    = 'About';
         $doctors = Doctor::all();
-        
+
         return view('page.about', compact('page', 'doctors'));
     }
 

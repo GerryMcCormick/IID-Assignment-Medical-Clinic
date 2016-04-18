@@ -47,7 +47,7 @@ class AppointmentController extends Controller
                 $week = 2;
             }
         }
-        
+
         //sets $this->appointments
         $this->getAppointments($dr_id); // first week (patients only allowed to book 2 weeks in advance)
         $appointments  = $this->appointments;
@@ -80,7 +80,7 @@ class AppointmentController extends Controller
             'doctor_id'  => $dr_id,
             'patient_id' => $patient_id,
         ]);
-        
+
         return $app->id;
     }
 
@@ -106,7 +106,7 @@ class AppointmentController extends Controller
                 $appointment['doctor']['id']   = $pen->doctor_id;
                 $appointment['doctor']['name'] = 'Dr ' . $this->doctors[$pen->doctor_id - 1]->surname;
                 $appointment['app_id']         = $pen->id;
-                
+
                 $pending[] = $appointment;
             }
         }
@@ -158,7 +158,7 @@ class AppointmentController extends Controller
         if($lastBookable->isWeekend()){
             $lastBookable = $lastBookable->startOfWeek()->addDays(4)->setTime(17,30);
         }
-        
+
         if($dr_id > 0){
             $bookedAppointments = Appointment::where('datetime', '>=', $this->now)->where('doctor_id', $dr_id)->get();
         }else{
@@ -193,7 +193,6 @@ class AppointmentController extends Controller
                         $bookedDocsIds[] = $ba->doctor_id;
                     }
                 }
-
                 if($dr_id == 0){ // all doctors
                     foreach($this->doctors as $d){
                         $this->addAvailableAppointmentsToArray($d, $datetime, $index, $bookedDocsIds, $readableDateTime, $time, $day);
